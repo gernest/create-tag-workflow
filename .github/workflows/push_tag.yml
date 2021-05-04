@@ -1,7 +1,7 @@
 name: Push tag
 
 on:
-  push:
+  create:
     tags:
       - "*"
 jobs:
