@@ -14,4 +14,4 @@ jobs:
           fetch-depth: 0
       - name: "show nightly tag"
         run: |
-          git tags
+          git tag
