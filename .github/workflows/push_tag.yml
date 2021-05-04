@@ -1,0 +1,17 @@
+name: Push tag
+
+on:
+  push:
+    tags:
+      - "*"
+jobs:
+  on_push_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "show nightly tag"
+        run: |
+          git tags
