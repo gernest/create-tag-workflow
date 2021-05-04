@@ -21,7 +21,7 @@ jobs:
       - name: "publish nightly tag"
         if: success()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         run: |
           tag=$(git for-each-ref --sort=-v:refname --count=1 --format '%(refname)' refs/tags/[0-9]*.[0-9]*.[0-9] refs/tags/v[0-9]*.[0-9]*.[0-9] | cut -d / -f 3-)
           tag_commit=$(git rev-list -n 1 $tag)
@@ -33,14 +33,15 @@ jobs:
               exit 0
           fi
           dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
-          full_name=$GITHUB_REPOSITORY
+          full_name=$MY_GITHUB_TOKEN
           git_refs_url=$(jq .repository.git_refs_url $GITHUB_EVENT_PATH | tr -d '"' | sed 's/{\/sha}//g')
           echo "$dt: **pushing tag $new to repo $full_name"
           curl -s -X POST $git_refs_url \
-          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Authorization: token $MY_GITHUB_TOKEN" \
           -d @- << EOF
           {
             "ref": "refs/tags/$new",
             "sha": "$commit"
           }
           EOF
+          git_workflow_url=
