@@ -3,7 +3,7 @@ name: Push tag
 on:
   create:
     tags:
-      - "*"
+      - "v[0-9]+.[0-9]+.[0-9]+-[a-z].*"
 jobs:
   on_push_tag:
     runs-on: ubuntu-latest
