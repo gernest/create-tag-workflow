@@ -19,5 +19,5 @@ jobs:
       - name: Commit and push
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: "gh-pages"
